@@ -10,23 +10,26 @@ const ButtonSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	}, 
-	classes: [
-		{
-				type: String,
-				required: true
-		}
-	], 
+	mainClass: {
+		type: String,
+		required: true
+	},
 	html: {
 		type: String,
 		required: true,
-		default: "<a class='{class}'>{placeholder}</a>"
 	},
+	secondaryClasses: [{
+				type: String,
+				required: true
+		}], 
 	css: [{
 		type: String,
 		required: true,
-		default: 
-		".{class}{background-color: red; color: white;}"
-	}]
+	}],
+	date: {
+		type: Date,
+		default: Date.now
+	}
 });
 
 module.exports = Button = mongoose.model('Button', ButtonSchema);

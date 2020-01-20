@@ -63,6 +63,16 @@ const ProfileSchema = new mongoose.Schema({
 			school: {
 				type: String,
 				required: true
+			},
+			from: {
+				type: Date,
+				required: true
+			},
+			to: {
+				type: Date
+			},
+			major: {
+				type: String
 			}
 		}
 	],

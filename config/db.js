@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const config = require("config");
 const db = config.get('mongoURI');
 
-mongoose.set('useFindAndModify', false);
 
 
 // Since mongoose returns promises, put the call to the database inside an async function
@@ -14,7 +13,8 @@ const connectDB = async () =>{
 			{ 
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
-				useCreateIndex: true
+				useCreateIndex: true,
+				useFindAndModify: false
 			 }
 			);
 		console.log('MongoDB Connected...')
