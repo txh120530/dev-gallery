@@ -1,0 +1,32 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+body{font-family: 'Roboto', sans-serif;}
+a{text-decoration: none;}
+
+.navbar{
+  position: absolute;
+  left: 0; right: 0; top: 0;
+
+  background-color: #1e1e1e;
+}
+
+.navbar ul { list-style: none; margin: 0; padding: 0; display: -webkit-flex;
+display: -moz-flex;
+display: -ms-flex;
+display: -o-flex;
+display: flex; -ms-align-items: center;
+align-items: center; justify-content: space-around; }
+.navbar ul li a { display: block }
+.navbar>ul { font-size: 0 }
+.navbar>ul>li { display: block; }
+.navbar>ul>li>a { color: #fff; font-size: 1rem; font-weight: 700;  padding: 14px 4px; font-weight: 400; text-transform: uppercase }
+.navbar>ul>li:hover>a { color: #a086d0 }
+.navbar ul li:hover>ul { display: block; top: 100%;     padding-top: 0;  visibility: visible;     opacity: 1; }
+.navbar ul ul { visibility: hidden; opacity: 0; min-width: 300px; position: absolute; z-index: 3; top: 100%; left: 0; text-align: left; background-color: #272727; transition: .3s; }
+.navbar ul ul li{width: 100%; display: block;}
+.navbar ul ul ul { left: 100%; top: 0; background-color: #585858 }
+.navbar ul ul ul li>a { color: #fff }
+.navbar ul ul li>a { padding: 10px 12px; font-size: 1rem; text-align: left; color: #fff }
+.navbar ul ul li:hover>a, .navbar ul ul li>a:hover { background-color: #2e4f6d; color: #fff }

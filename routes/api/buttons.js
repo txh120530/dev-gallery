@@ -29,7 +29,6 @@ router.post('/',
 		if (!errors.isEmpty()){
 			    return res.status(400).json({ errors: errors.array() });
 		}
-
 		try {
 			// Search for profile by user ID
 			let user = await User.findById(req.user.id).select('-password');
@@ -44,22 +43,16 @@ router.post('/',
 				avatar: user.avatar,
 				user: req.user.id
 			})
-
-
 	  const {
 	  	secondaryClasses,
 	  	css
 	  } = req.body;
-
 		newButton.css = css.map(css => css.trim());
 
 	  // Check for secondar values
 		if(secondaryClasses) {
 			newButton.secondaryClasses = secondaryClasses.map(cssClass => cssClass.trim());
 		}
-
-
-
 			const button = await newButton.save();
 			return res.json(button);
 
@@ -67,7 +60,20 @@ router.post('/',
 			console.error(err.message);
 			res.status(500).send('Server Error');
 		}
-    
+});
+
+// @route 	GET api/buttons/edit/:button_id
+// @desc 		Get all buttons
+// @access 	Private
+router.get('/', auth(), async(req, res) => {
+	try {
+		const buttons = await Button.find().sort({date: -1});
+
+		res.json(buttons);
+	} catch(err){
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
 
 
 });
@@ -96,7 +102,11 @@ router.post('/edit/:button_id',
 			let user = await User.findById(req.user.id).select('-password');
 			let button = await Button.findById(req.params.button_id);
 
-			console.log(button.id);
+			// Check user
+			console.log(user.id.roles);
+			if(post.user.toString() !== req.user.id && !user.id.roles.includes("editor") && !user.id.roles.includes("admin")){
+				return res.status(401).json({msg: 'User not authorized'});
+			}
 			// Create new button object to store values
 
 			// Required values
@@ -111,10 +121,8 @@ router.post('/edit/:button_id',
 	  	secondaryClasses,
 	  	css
 	  } = req.body;
-
 		buttonFields.css = css.map(css => css.trim());
-
-	  // Check for secondar values
+	  // Check for secondary values
 		if(secondaryClasses) {
 			buttonFields.secondaryClasses = secondaryClasses.map(cssClass => cssClass.trim());
 		}
@@ -124,7 +132,6 @@ router.post('/edit/:button_id',
 			{$set: buttonFields},
 			{upsert: true}
 		);
-
 			const editedButton = await button.save();
 			return res.json(editedButton);
 
@@ -132,9 +139,95 @@ router.post('/edit/:button_id',
 			console.error(err.message);
 			res.status(500).send('Server Error');
 		}
-    
+});
 
 
+// @route 	Delete api/button/:id
+// @desc 		Delete button by ID
+// @access 	Private
+router.delete('/:id', auth(), async(req, res) => {
+	try {
+		const user = await User.findById(req.user.id).select('-password');
+		const button = await Button.findById(req.params.id);
+		if(!button){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+		// Check user
+		console.log(user.id.roles);
+		if(button.user.toString() !== req.user.id && !user.id.roles.includes("editor") && !user.id.roles.includes("admin")){
+			return res.status(401).json({msg: 'User not authorized'});
+		}
+		await button.remove();
+		res.json({msg: 'Button removed' });
+
+	} catch(err){
+		if(err.kind === 'ObjectId'){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
+
+
+
+// @route 	PUT api/button/likes/:id
+// @desc 		Like a button
+// @access 	Private
+router.put('/like/:id', auth(), async(req, res) => {
+	try{
+		const button = await Button.findById(req.params.id);
+		if(!button){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+
+		// Check if the button has already been liked
+		if(button.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+			return res.status(400).json({msg: 'Button already liked'});
+		}
+
+		button.likes.unshift({user: req.user.id});
+		await button.save();
+		res.json(button.likes);
+
+	} catch(err){
+		if(err.kind === 'ObjectId'){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
+
+// @route 	PUT api/buttons/unlike/:id
+// @desc 		Unlike a button
+// @access 	Private
+router.put('/unlike/:id', auth(), async(req, res) => {
+	try{
+		const button = await Button.findById(req.params.id);
+		if(!button){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+
+		// Check if the button has already been liked
+		if(button.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+			return res.status(400).json({msg: 'No likes from user found'});
+		}
+
+		const removeIndex = button.likes.map(like => like.user.toStrong()).indexOf(req.user.id);
+
+		button.likes.splice(removeIndex, 1);
+		await button.save();
+		res.json(button.likes);
+
+
+	} catch(err){
+		if(err.kind === 'ObjectId'){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
 });
 
 

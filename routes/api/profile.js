@@ -167,6 +167,9 @@ router.get('/:id', async (req, res) =>{
 
 		res.json(profile);
 	} catch(err) {
+		if(err.kind === 'ObjectId'){
+			return res.status(404).json({msg: 'Post not Found'})
+		}
 		console.error(err.message);
 		res.status(500).send('Server Error');
 	}
