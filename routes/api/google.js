@@ -30,6 +30,10 @@ router.get('/callback',
 
 
 
+
+
+
+
 passport.use(new GoogleStrategy({
     clientID: config.get('GOOGLE_CLIENT_ID'),
     clientSecret: config.get('GOOGLE_CLIENT_SECRET'),

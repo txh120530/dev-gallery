@@ -28,7 +28,7 @@ module.exports = function(role='guest') {
 		switch(role){
 			case 'editor':
 				if(userRoles.includes(role)){
-					next();
+					return next();
 				}
 				return res.status(401).json({msg: 'You do not have permission to view this content'});
 			default: 

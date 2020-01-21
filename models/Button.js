@@ -6,7 +6,7 @@ const ButtonSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'user'
 	}, 
-	name: {
+	title: {
 		type: String,
 		required: true
 	}, 
@@ -19,13 +19,20 @@ const ButtonSchema = new mongoose.Schema({
 		required: true,
 	},
 	secondaryClasses: [{
-				type: String,
-				required: true
+				type: String
 		}], 
 	css: [{
 		type: String,
 		required: true,
 	}],
+	likes: [
+		{
+			user: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'users'
+			}
+		}
+	],
 	date: {
 		type: Date,
 		default: Date.now

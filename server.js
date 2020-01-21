@@ -21,7 +21,8 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/google', require('./routes/api/google'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/post', require('./routes/api/post'));
+app.use('/api/posts', require('./routes/api/post'));
+app.use('/api/buttons', require('./routes/api/buttons'));
 
 
 // 404 Error for unhandled routes
