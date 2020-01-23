@@ -6,9 +6,6 @@ body{font-family: 'Roboto', sans-serif;}
 a{text-decoration: none;}
 
 .navbar{
-  position: absolute;
-  left: 0; right: 0; top: 0;
-
   background-color: #1e1e1e;
 }
 
@@ -20,7 +17,7 @@ display: flex; -ms-align-items: center;
 align-items: center; justify-content: space-around; }
 .navbar ul li a { display: block }
 .navbar>ul { font-size: 0 }
-.navbar>ul>li { display: block; }
+.navbar>ul>li { display: block; position: relative; }
 .navbar>ul>li>a { color: #fff; font-size: 1rem; font-weight: 700;  padding: 14px 4px; font-weight: 400; text-transform: uppercase }
 .navbar>ul>li:hover>a { color: #a086d0 }
 .navbar ul li:hover>ul { display: block; top: 100%;     padding-top: 0;  visibility: visible;     opacity: 1; }
