@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 
 const Navbar = props => {
   return (
-    <Router>
     <nav className="navbar">
       <ul>
         <li><Link to="/profiles">Profiles</Link></li>
@@ -14,7 +13,6 @@ const Navbar = props => {
         <li><Link to="/login">Login</Link></li>
       </ul>
     </nav>
-    </Router>
   )
 }
 
