@@ -4,7 +4,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {setAlert} from '../../actions/alert';
 
-const Register = props => {
+const Register = (props) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -22,7 +22,7 @@ const onSubmit = async e =>{
 	e.preventDefault();
 
 	if(password !== password2){
-		setAlert('Passwords do not Match', 'warning');
+		props.setAlert('Passwords do not Match', 'warning');
 	}
 
 	else{
@@ -32,7 +32,7 @@ const onSubmit = async e =>{
 
 	return (
 		<Fragment>
-			<h1 clasName="large text-primary"Sign Up></h1>
+			<h1 className="large text-primary">Sign Up</h1>
 			<p className="lead">Create Your Account</p>
 
 			<form onSubmit={e => onSubmit(e)}>
@@ -50,4 +50,4 @@ Register.propTypes = {
 	setAlert: PropTypes.func.isRequired
 }
 
-export default connect(null, {setAlert})(Register)
+export default connect(null, { setAlert })(Register);
