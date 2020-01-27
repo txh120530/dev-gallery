@@ -6,6 +6,10 @@ const ButtonSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'user'
 	}, 
+	username: {
+		type: String,
+		ref: 'user'
+	},
 	title: {
 		type: String,
 		required: true

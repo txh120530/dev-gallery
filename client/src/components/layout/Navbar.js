@@ -29,7 +29,7 @@ const guestLinks = (
     <nav className="navbar">
     <div class="nav-top flex justify-between px-2">
       <Link to="/" className="logo text-white uppercase ">Dev Gallery</Link>
-      <div>{!props.loading && (<Fragment>{props.isAuthenticated ? <Link className="text-white" to="/">Welcome, {props.user.name}!</Link> : null}</Fragment>)}</div>
+      <div>{!props.loading && (<Fragment>{props.user ? <Link className="text-white" to="/">Welcome, {props.user.name}!</Link> : null}</Fragment>)}</div>
     </div>
     {!props.loading && (<Fragment>{props.isAuthenticated ? authLinks : guestLinks}</Fragment>)}
     </nav>

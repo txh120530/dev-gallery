@@ -1,6 +1,8 @@
 import React, {Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
+import Style from 'style-it';
+import ReactHtmlParser from 'react-html-parser'; 
 import store from '../../../store';
 
 
@@ -15,6 +17,8 @@ const Buttons = (props) =>{
 
 
 
+
+
 	return props.buttons.loading ? (
 		<Fragment><h1 className="text-4xl font-bold text-center text-blue-500 py-5">Button Gallery</h1>	<p>Loading...</p></Fragment>
 	) : (
@@ -22,7 +26,14 @@ const Buttons = (props) =>{
 			<h1 className="text-4xl font-bold text-center text-blue-500 py-5">Button Gallery</h1>
 
 			{props.buttons.buttons.map(button => (
-				<div key={button._id.toString()}> <div dangerouslySetInnerHTML={{ __html: button.html }} /></div>
+        <div className="text-center">
+          <h2 className="text-2l font-bold text-blue-400">{button.title}</h2>
+          {button.username ? <p>By: {button.username}</p> : null }
+          {console.log(button.user)}
+          {Style.it(button.css[0],
+           <div key={button._id.toString()}> {ReactHtmlParser (button.html)}</div>
+          )}
+      </div>
       ))}
 		</Fragment>
 	) 
