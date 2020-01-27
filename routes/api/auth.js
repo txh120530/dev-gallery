@@ -8,7 +8,23 @@ const config = require('config');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
-// @route 	GET api/auth
+
+
+
+router.get('/', auth(), async(req, res) =>{
+	try {
+    const user = await User.findById(req.user.id).select('-password');
+    console.log(user);
+    res.json(user);
+	} catch(err){
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+
+});
+
+
+// @route 	POST api/auth
 // @desc 		Authenticate User & get token
 // @access 	PUBLIC
 router.post('/', 
@@ -28,7 +44,6 @@ router.post('/',
     try{
 	    // Check if this user already exisits
 	    let user = await User.findOne({ email: req.body.email });
-	    console.log(user);
 	    if (!user) {
 	      return res.status(400).json({errors: [{msg: 'Invalid Credentials'}]});
 	    } else {
@@ -66,5 +81,6 @@ router.post('/',
 			res.status(500).send('Server error');
 		}
 });
+
 
 module.exports = router;

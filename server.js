@@ -1,6 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 const helmet = require('helmet');
+const cors = require('cors');
+const bodyParser = require('body-parser')
 
 const connectDB = require('./config/db');
 require("./services/passport-services.js");
@@ -9,10 +11,10 @@ const app = express();
 connectDB();
 
 // Init Middleware
-app.use(express.json({extended: false}));
-app.use(helmet());
+app.use(express.json({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 app.get('/', (req, res) => {res.send('API Running')});
 
@@ -30,6 +32,6 @@ app.get('*', function(req, res){
   res.status(404).send('What?');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {console.log(`Server is running at ${PORT}`)});

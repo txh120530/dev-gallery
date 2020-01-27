@@ -1,10 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link} from 'react-router-dom';
+
 
 const Landing = props => {
   return (
     <div>
-      Landing
+    <div class="container hero-container">
+      <h1 className="text-6xl font-bold text-center text-blue-500">TNT Dev Gallery</h1>
+			<p className="text-2xl font-bold text-center text-blue-500">Create, Share, and Copy TNT Component Designs. (Or something like that, Iunno)</p>
+
+			<div className="text-center my-10">
+			<Link to="/register" className="text-3xl bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-4 px-6 rounded-l">Register</Link>
+			<Link to="/login" className="text-3xl bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-4 px-6 rounded-r">Log In</Link>
+</div>
+</div>
+
+
+      <div class="background">
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+   <span></span>
+</div>
     </div>
   )
 }

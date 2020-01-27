@@ -3,6 +3,7 @@ const router = express.Router();
 const {check, validationResult} = require('express-validator');
 const config = require('config');
 const request = require('request');
+const sanitizeHtml = require('sanitize-html');
 
 const auth = require('../../middleware/auth');
 
@@ -35,11 +36,19 @@ router.post('/',
 
 			// Create new button object to store values
 
+			let cleanhtml = sanitizeHtml(req.body.html, {allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
+  allowedAttributes: {
+    'a': [ 'href' ]
+  },
+  allowedIframeHostnames: ['#']})
+
+			console.log(cleanhtml);
+
 			// Required values
 			const newButton = new Button({
 				title: req.body.title,
 				mainClass: req.body.mainClass,
-				html: req.body.html,
+				html: cleanhtml,
 				avatar: user.avatar,
 				user: req.user.id
 			})

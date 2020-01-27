@@ -7,6 +7,7 @@ module.exports = function(role='guest') {
 	// Get token from header
 	const token = req.header('x-auth-token');
 
+
 	// Check if no token
 	if(!token){
 		return res.status(401).json({msg: 'No token, authorization denied'});
@@ -18,7 +19,6 @@ module.exports = function(role='guest') {
 		req.user = decoded.user;
 		let userInfo = await User.findById(req.user.id);
 		const userRoles = userInfo.roles;
-		console.log(userRoles);
 
 		if(userRoles.includes('admin')){
 			console.log("Admin");

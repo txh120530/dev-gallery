@@ -13,20 +13,30 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "config": "^3.2.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
     "gravatar": "^1.8.0",
     "helmet": "^3.21.2",
+    "html-escape": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.9",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.88.0",
+    "sanitize-html": "^1.21.1",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "concurrently": "^5.0.2"
+    "concurrently": "^5.0.2",
+    "http-proxy-middleware": "^0.20.0"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:5000"
+    }
   }
 }

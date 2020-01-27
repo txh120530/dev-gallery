@@ -1,33 +1,49 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import './App.css';
+import './App-build.css';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
+import Buttons from './components/gallery/buttons/Buttons';
+
+import setAuthToken from './utils/setAuthToken'
 
 //Redux
 import {Provider} from 'react-redux';
 import store from './store';
+import { loadUser } from './actions/auth';
+
+if(localStorage.token){
+	setAuthToken(localStorage.token);
+}
 
 
-const App = () =>
+const App = () => { 
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
+	return(
     <Provider store={store}>
 		<Router> 
-	   <React.Fragment>
+	   <Fragment>
 	     <Navbar />
 	     <Route exact path="/" component={Landing} />
-	     <section className="container">
+	     <section className="container max-w-4xl">
 	     <Alert />
 	     		<Switch>
  			     	<Route exact path="/register" component={Register} />
 	     	    <Route exact path="/login" component={Login} />
+	     	    <Route path="/gallery/buttons" component={Buttons} />
 	     		</Switch>
 	     </section>
-	   </React.Fragment>
+	   </Fragment>
    </Router>
    </Provider>
+ )}
 
 export default App;
