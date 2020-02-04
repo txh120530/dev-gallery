@@ -1,43 +1,49 @@
 import {
-	GET_BUTTON,
-	GET_BUTTONS,
-	UPDATE_BUTTON,
-	BUTTON_ERROR
-} from '../actions/types'
-
-
+	GET_PROFILE,
+	GET_PROFILES,
+	UPDATE_PROFILE,
+	PROFILE_ERROR,
+	CLEAR_PROFILE
+} from '../actions/types';
 
 
 const initialState = {
-  buttons: [],
-  button: null,
+  profiles: [],
+  profile: null,
+  reposts: [],
   loading: true,
   error: {}
 };
-
 
 export default function(state = initialState, action) {
   const { type, payload } = action;
 
 	switch(type){
-		case UPDATE_BUTTON:
-		case GET_BUTTON:
+		case UPDATE_PROFILE:
+		case GET_PROFILE:
 			return{
 				...state,
-				button: payload,
+				profile: payload,
 				loading: false
 			}
-		case GET_BUTTONS:
+
+		case GET_PROFILES:
 			return{
 				...state,
-				buttons: payload,
+				profile: payload,
 				loading: false
 			}
-		case BUTTON_ERROR:
+		case PROFILE_ERROR:
 			return{
 				...state,
 				loading: false,
 				error: payload
+			}
+		case CLEAR_PROFILE:
+			return{
+				...state,
+				loading: false,
+				profile: null
 			}
 		default:
 			return state;

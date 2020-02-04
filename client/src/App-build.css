@@ -628,7 +628,7 @@ video {
   background-color: #2c5282;
 }
 
-input[type="text"], input[type="email"], input[type="password"]{
+input[type="text"], input[type="email"], input[type="password"], textarea, select{
   background-color: #fff;
   border-width: 1px;
   border-color: #e2e8f0;
@@ -8716,6 +8716,14 @@ a{
   display: -ms-flex;
   display: -o-flex;
   display: flex; align-content: center; justify-content: center; flex-direction: column;
+}
+
+.editor-split{
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex; -ms-align-items: stretch;
+  align-items: stretch;
 }
 
 @media (min-width: 640px) {

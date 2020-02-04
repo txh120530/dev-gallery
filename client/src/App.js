@@ -9,6 +9,12 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Buttons from './components/gallery/buttons/Buttons';
+import CreateButton from './components/button-forms/CreateButton';
+import Gallery from './components/gallery/Gallery';
+import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile-forms/CreateProfile';
+
+import PrivateRoute from './components/routing/PrivateRoute'
 
 import setAuthToken from './utils/setAuthToken'
 
@@ -38,7 +44,11 @@ const App = () => {
 	     		<Switch>
  			     	<Route exact path="/register" component={Register} />
 	     	    <Route exact path="/login" component={Login} />
-	     	    <Route path="/gallery/buttons" component={Buttons} />
+	     	    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+	     	    <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+	     	    <PrivateRoute exact path="/gallery" component={Gallery} />
+	     	    <PrivateRoute path="/gallery/buttons" component={Buttons} />
+	     	    <PrivateRoute path="/gallery/create-button" component={CreateButton} />
 	     		</Switch>
 	     </section>
 	   </Fragment>

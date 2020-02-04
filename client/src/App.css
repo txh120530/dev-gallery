@@ -14,7 +14,7 @@
 	@apply bg-blue-800;
 }
 
-input[type="text"], input[type="email"], input[type="password"]{@apply bg-white border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-2}
+input[type="text"], input[type="email"], input[type="password"], textarea, select{@apply bg-white border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal my-2}
 
 .container{margin: 0 auto;}
 
@@ -292,3 +292,10 @@ display: -moz-flex;
 display: -ms-flex;
 display: -o-flex;
 display: flex; align-content: center; justify-content: center; flex-direction: column;}
+
+.editor-split{display: -webkit-flex;
+display: -moz-flex;
+display: -ms-flex;
+display: -o-flex;
+display: flex; -ms-align-items: stretch;
+align-items: stretch;}

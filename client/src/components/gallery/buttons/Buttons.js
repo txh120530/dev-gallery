@@ -30,7 +30,7 @@ const Buttons = (props) =>{
           <h2 className="text-2l font-bold text-blue-400">{button.title}</h2>
           {button.username ? <p>By: {button.username}</p> : null }
           {console.log(button.user)}
-          {Style.it(button.css[0],
+          {Style.it(button.css,
            <div key={button._id.toString()}> {ReactHtmlParser (button.html)}</div>
           )}
       </div>

@@ -17,6 +17,8 @@ const User = require('../../models/User');
 router.get('/me', auth(), async (req, res) => {
 	try{
 		const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar']);
+
+
 	
 		if(!profile){
 			return res.status(400).json({msg: 'There is no profile for this user'});
@@ -37,8 +39,7 @@ router.get('/me', auth(), async (req, res) => {
 
 router.post('/', 
 	[auth(), 
-		[check('status', 'Status is required').not().isEmpty(), 
-		check('skills', 'Skills are required').not().isEmpty()]
+		[check('status', 'Status is required').not().isEmpty()]
 	],
 	async (req, res) =>{
 		const errors = validationResult(req);

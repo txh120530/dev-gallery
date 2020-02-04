@@ -20,7 +20,6 @@ router.post('/',
 	[auth(), 
 		[
 		check('title', 'Title is required').not().isEmpty(), 
-		check('mainClass', 'Primary Class is required').not().isEmpty(),
 		check('html', 'HTML is required').not().isEmpty(),
 		check('css', 'CSS is required').not().isEmpty()
 		]
@@ -36,32 +35,19 @@ router.post('/',
 
 			// Create new button object to store values
 
-			let cleanhtml = sanitizeHtml(req.body.html, {allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
-  allowedAttributes: {
-    'a': [ 'href' ]
-  },
-  allowedIframeHostnames: ['#']})
-
-			console.log(cleanhtml);
-
 			// Required values
 			const newButton = new Button({
 				title: req.body.title,
-				mainClass: req.body.mainClass,
-				html: cleanhtml,
+				html: req.body.html,
 				avatar: user.avatar,
+				css: req.body.css,
 				user: req.user.id
 			})
-	  const {
-	  	secondaryClasses,
-	  	css
-	  } = req.body;
-		newButton.css = css.map(css => css.trim());
 
-	  // Check for secondar values
-		if(secondaryClasses) {
-			newButton.secondaryClasses = secondaryClasses.map(cssClass => cssClass.trim());
-		}
+			if(req.body.username){
+				newButton.username = req.body.username;
+			}
+	 
 			const button = await newButton.save();
 			return res.json(button);
 

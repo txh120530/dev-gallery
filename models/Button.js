@@ -14,21 +14,14 @@ const ButtonSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	}, 
-	mainClass: {
-		type: String,
-		required: true
-	},
 	html: {
 		type: String,
 		required: true,
 	},
-	secondaryClasses: [{
-				type: String
-		}], 
-	css: [{
+	css: {
 		type: String,
 		required: true,
-	}],
+	},
 	likes: [
 		{
 			user: {
