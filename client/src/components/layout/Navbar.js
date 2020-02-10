@@ -12,7 +12,7 @@ const Navbar = props => {
   <ul>
     <li><Link to="/profiles">Profiles</Link></li>
     <li><Link to="/gallery">Gallery</Link> <ul><li><Link to="/gallery/buttons">Buttons</Link></li></ul></li>
-    <li><Link onClick={props.logout} to="/logout">Logout</Link></li>
+    <li><Link onClick={props.logout} to="/login">Logout</Link></li>
   </ul>
 )
 

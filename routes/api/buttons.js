@@ -163,7 +163,6 @@ router.delete('/:id', auth(), async(req, res) => {
 			return res.status(404).json({msg: 'Button not Found'})
 		}
 		// Check user
-
 		if(button.user.toString() !== req.user.id && !user.roles.includes("editor") && !user.roles.includes("admin")){
 			return res.status(401).json({msg: 'User not authorized'});
 		}

@@ -6,6 +6,7 @@ import {
 	GET_BUTTON,
 	GET_BUTTONS,
   UPDATE_BUTTON,
+  DELETE_BUTTON,
 	BUTTON_ERROR,
   CLEAR_BUTTON
 } from './types'
@@ -57,6 +58,9 @@ export const createButton = (formData, history, edit=false) => async dispatch =>
       history.push('/gallery/buttons');
     }
 
+
+
+
   } catch (err) {
 
     const errors = err.response.data.errors;
@@ -101,6 +105,24 @@ export const editButton = (formData, history, id, edit=false) => async dispatch 
       type: BUTTON_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
+  }
+}
+
+export const deleteButton = (id) => async dispatch => {
+
+    try {
+      console.log("Test");
+    const res = await axios.delete(`/api/buttons/${id}`);
+    await dispatch({ type: CLEAR_BUTTON });
+    dispatch(setAlert('Button Deleted', 'success'));
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: BUTTON_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+
+    });
+    
   }
 }
 
