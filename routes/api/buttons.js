@@ -27,7 +27,7 @@ router.post('/',
 	async (req, res) =>{
 		const errors = validationResult(req);
 		if (!errors.isEmpty()){
-			    return res.status(400).json({ errors: errors.array() });
+			return res.status(400).json({ errors: errors.array() });
 		}
 		try {
 			// Search for profile by user ID
@@ -57,7 +57,30 @@ router.post('/',
 		}
 });
 
-// @route 	GET api/buttons/edit/:button_id
+
+// @route 	GET api/buttons/:id
+// @desc 		Get all buttons
+// @access 	Private
+router.get('/:id', auth(), async(req, res) => {
+	try {
+		const user = await User.findById(req.user.id).select('-password');
+		const button = await Button.findById(req.params.id);
+		if(!button){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+		console.log(button);
+		res.json(button);
+	} catch(err){
+		if(err.kind === 'ObjectId'){
+			return res.status(404).json({msg: 'Button not Found'})
+		}
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+
+});
+
+// @route 	GET api/buttons/
 // @desc 		Get all buttons
 // @access 	Private
 router.get('/', auth(), async(req, res) => {
@@ -73,15 +96,18 @@ router.get('/', auth(), async(req, res) => {
 
 });
 
+
+
+
+
 // @route 	PUT api/buttons/edit/:button_id
 // @desc 		Edit button
 // @access 	Private
 
-router.post('/edit/:button_id', 
-	[auth('editor'), 
+router.post('/:button_id', 
+	[auth(), 
 		[
 		check('title', 'Title is required').not().isEmpty(), 
-		check('mainClass', 'Primary Class is required').not().isEmpty(),
 		check('html', 'HTML is required').not().isEmpty(),
 		check('css', 'CSS is required').not().isEmpty()
 		]
@@ -98,8 +124,8 @@ router.post('/edit/:button_id',
 			let button = await Button.findById(req.params.button_id);
 
 			// Check user
-			console.log(user.id.roles);
-			if(post.user.toString() !== req.user.id && !user.id.roles.includes("editor") && !user.id.roles.includes("admin")){
+			console.log("Roles: " + user.roles);
+			if(button.user.toString() !== req.user.id && !user.roles.includes("editor") && !user.roles.includes("admin")){
 				return res.status(401).json({msg: 'User not authorized'});
 			}
 			// Create new button object to store values
@@ -107,20 +133,9 @@ router.post('/edit/:button_id',
 			// Required values
 			const buttonFields = {
 				title: req.body.title,
-				mainClass: req.body.mainClass,
-				html: req.body.html
+				html: req.body.html,
+				css: req.body.css
 			};
-
-
-	  const {
-	  	secondaryClasses,
-	  	css
-	  } = req.body;
-		buttonFields.css = css.map(css => css.trim());
-	  // Check for secondary values
-		if(secondaryClasses) {
-			buttonFields.secondaryClasses = secondaryClasses.map(cssClass => cssClass.trim());
-		}
 
 		await Button.findOneAndUpdate(
 			{_id: button.id},
@@ -148,8 +163,8 @@ router.delete('/:id', auth(), async(req, res) => {
 			return res.status(404).json({msg: 'Button not Found'})
 		}
 		// Check user
-		console.log(user.id.roles);
-		if(button.user.toString() !== req.user.id && !user.id.roles.includes("editor") && !user.id.roles.includes("admin")){
+
+		if(button.user.toString() !== req.user.id && !user.roles.includes("editor") && !user.roles.includes("admin")){
 			return res.status(401).json({msg: 'User not authorized'});
 		}
 		await button.remove();

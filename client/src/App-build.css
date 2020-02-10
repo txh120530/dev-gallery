@@ -628,6 +628,18 @@ video {
   background-color: #2c5282;
 }
 
+.module-buttons{
+  position: absolute; top: 5px; right: 5px;
+}
+
+.module-buttons i{
+  display: inline-block;
+}
+
+.module-buttons .icon-plus{
+  transform: rotate(45deg);
+}
+
 input[type="text"], input[type="email"], input[type="password"], textarea, select{
   background-color: #fff;
   border-width: 1px;

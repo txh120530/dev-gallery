@@ -10,6 +10,7 @@ import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Buttons from './components/gallery/buttons/Buttons';
 import CreateButton from './components/button-forms/CreateButton';
+import EditButton from './components/button-forms/EditButton';
 import Gallery from './components/gallery/Gallery';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
@@ -39,7 +40,7 @@ const App = () => {
 	   <Fragment>
 	     <Navbar />
 	     <Route exact path="/" component={Landing} />
-	     <section className="container max-w-4xl">
+	     <section className="container max-w-6xl">
 	     <Alert />
 	     		<Switch>
  			     	<Route exact path="/register" component={Register} />
@@ -49,6 +50,7 @@ const App = () => {
 	     	    <PrivateRoute exact path="/gallery" component={Gallery} />
 	     	    <PrivateRoute path="/gallery/buttons" component={Buttons} />
 	     	    <PrivateRoute path="/gallery/create-button" component={CreateButton} />
+	     	    <PrivateRoute exact path="/gallery/edit-button/:id" component={EditButton} />
 	     		</Switch>
 	     </section>
 	   </Fragment>

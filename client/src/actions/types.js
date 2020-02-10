@@ -32,3 +32,4 @@ export const GET_BUTTON = 'GET_BUTTON';
 export const GET_BUTTONS = 'GET_BUTTONS';
 export const UPDATE_BUTTON = 'UPDATE_BUTTON';
 export const BUTTON_ERROR = 'BUTTON_ERROR';
+export const CLEAR_BUTTON = 'CLEAR_BUTTON';
