@@ -21,13 +21,12 @@ const onChange = e => setFormData({...formData, [e.target.name]: e.target.value}
 
 const onSubmit = async e =>{
 	e.preventDefault();
-	console.log(formData);
 	props.login({email, password});
 }
 
 // Redirect if logged in
 if (props.isAuthenticated){
-	return <Redirect to="/gallery" />
+	return <Redirect to="/gallery/buttons" />
 }
 
 
