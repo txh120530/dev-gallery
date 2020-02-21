@@ -5,9 +5,11 @@ import {connect} from 'react-redux';
 import Style from 'style-it';
 import ReactHtmlParser from 'react-html-parser'; 
 import { confirmAlert } from 'react-confirm-alert';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import ButtonDashboard from './ButtonDashboard'
+import ButtonDisplayWindow from './ButtonDisplayWindow'
 import Spinner from '../../layout/Spinner'
 import store from '../../../store';
 import { getButtons, deleteButton } from '../../../actions/button';
@@ -63,18 +65,7 @@ const Buttons = (props) =>{
 
        <div className=" flex flex-wrap space-around">
 			{props.buttons.buttons.map(button => (
-        <div className="text-center shadow-md my-2 mx-2 p-6 relative bg-gray-100">
-          {
-            props.auth.loading ? (
-              null
-            ) : (props.auth.user._id.toString() === button.user || props.auth.user.roles.includes('admin') || props.auth.user.roles.includes('editor') ? <div className="module-buttons"><Link to={`/gallery/edit-button/${button._id}`} params={button._id}><i className='icon-pencil'></i></Link> <Link to='' onClick={e => onDeleteButton(e, button._id)}><i className='icon-plus'></i></Link></div> : null)
-          }
-          <h2 className="text-2l font-bold text-blue-400">{button.title}</h2>
-          {button.username ? <p>By: {button.username}</p> : null }
-          {Style.it(button.css,
-           <div key={button._id.toString()}> {ReactHtmlParser (button.html)}</div>
-          )}
-      </div>
+        <ButtonDisplayWindow button={button}></ButtonDisplayWindow>
       ))}
       </div>
 		</Fragment>
@@ -87,13 +78,11 @@ const Buttons = (props) =>{
 Buttons.propTypes = {
 	getButtons: PropTypes.func.isRequired,
   deleteButton: PropTypes.func.isRequired,
-  buttons: PropTypes.object,
-  auth: PropTypes.object.isRequired,
+  buttons: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-  buttons: state.button,
-  auth: state.auth
+  buttons: state.button
 })
 
 export default connect(mapStateToProps, { getButtons, deleteButton })(Buttons)
