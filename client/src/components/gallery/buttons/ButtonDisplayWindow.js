@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { confirmAlert } from 'react-confirm-alert';
+
+
+import {setAlert} from '../../../actions/alert';
 import Style from 'style-it';
 import ReactHtmlParser from 'react-html-parser'; 
 
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import store from '../../../store';
 
-import { getButton,deleteButton } from '../../../actions/button';
+import { getButtons, deleteButton } from '../../../actions/button';
 
 const ButtonDisplayWindow = (props, {button}) => {
 
@@ -22,8 +25,9 @@ const ButtonDisplayWindow = (props, {button}) => {
         {
           label: 'Yes',
           onClick: async () => {
-            console.log("Yes");
-            await deleteButton(id);
+            console.log(id);
+            await store.dispatch(deleteButton(id));
+            store.dispatch(getButtons());
           }
         },
         {
@@ -56,8 +60,8 @@ const ButtonDisplayWindow = (props, {button}) => {
          <div key={props.button._id.toString()}> {ReactHtmlParser (props.button.html)}</div>
         )}
         <div class="flex items-center justify-around text-xs">
-          <CopyToClipboard onCopy={() => this.setState({copied: true})} text={props.button.html}><span className="cursor-pointer text-blue-400">(Copy HTML)</span></CopyToClipboard> 
-          <CopyToClipboard onCopy={() => this.setState({copied: true})} text={props.button.css}><span className="cursor-pointer text-blue-400">(Copy CSS)</span></CopyToClipboard>
+          <CopyToClipboard onCopy={ () => { props.setAlert('HTML Copied to Clipboard', 'success') }} text={props.button.html}><span className="cursor-pointer text-blue-400">(Copy HTML)</span></CopyToClipboard> 
+          <CopyToClipboard onCopy={ () => { props.setAlert('CSS Copied to Clipboard', 'success') }}><span className="cursor-pointer text-blue-400">(Copy CSS)</span></CopyToClipboard>
         </div>
     </div>
   )
@@ -66,7 +70,9 @@ const ButtonDisplayWindow = (props, {button}) => {
 
 
 ButtonDisplayWindow.propTypes = {
+  setAlert: PropTypes.func.isRequired,
   deleteButton: PropTypes.func.isRequired,
+  getButtons: PropTypes.func.isRequired,
   buttons: PropTypes.object,
   auth: PropTypes.object.isRequired,
 }
@@ -76,4 +82,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { deleteButton })(ButtonDisplayWindow)
+export default connect(mapStateToProps, { setAlert, deleteButton, getButtons })(ButtonDisplayWindow)
