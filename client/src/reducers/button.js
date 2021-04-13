@@ -2,6 +2,7 @@ import {
 	GET_BUTTON,
 	GET_BUTTONS,
 	UPDATE_BUTTON,
+	DELETE_BUTTON,
 	BUTTON_ERROR,
 	CLEAR_BUTTON
 } from '../actions/types'
@@ -40,6 +41,7 @@ export default function(state = initialState, action) {
 				loading: false,
 				error: payload
 			}
+		case DELETE_BUTTON:
 		case CLEAR_BUTTON:
 			return{
 				...state,
