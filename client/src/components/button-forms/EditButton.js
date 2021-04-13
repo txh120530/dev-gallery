@@ -47,7 +47,8 @@ const EditButton = ({editButton, getButton, button: {button, loading}, user, mat
 
 const onSubmit = async e =>{
 	e.preventDefault();
-	editButton(formData, history, button._id.toString(), true);
+	await editButton(formData, history, button._id.toString(), true);
+  getButton(match.params.id)
 }
 
 
