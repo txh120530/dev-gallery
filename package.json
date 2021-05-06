@@ -27,7 +27,7 @@
     "passport-google-oauth20": "^2.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.88.0",
-    "sanitize-html": "^1.21.1",
+    "sanitize-html": "^2.3.2",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
