@@ -26,6 +26,10 @@ const Buttons = (props) =>{
 		<Fragment>
 			<h1 className="text-4xl font-bold text-center text-blue-500 py-5">Button Gallery</h1>
 
+      <div className="block text-center">
+        <Link to="/gallery/create-button">Create New Button</Link>
+      </div>
+
        <div className=" flex flex-wrap space-around">
 			{props.buttons.buttons.map(button => (
         <div className="text-center shadow-md my-2 mx-2 p-6 relative bg-gray-100">

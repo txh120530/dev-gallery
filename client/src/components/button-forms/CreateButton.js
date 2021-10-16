@@ -15,7 +15,7 @@ const CreateButton = ({createButton, button: {button, loading}, history, user}) 
 	const [formData, setFormData] = useState({
 		title: '',
 		username: '',
-		html: "<a href='#' class='btn'>Sample Text</a>\n<a href='#' class='btn'>Sample Text</a>",
+		html: "<a href='#' class='btn'>Sample Text</a>\n<a href='#' class='btn btn-alt'>Sample Text</a>",
 		css: ".btn{background-color: red; display: inline-block; color: #fff; padding: 10px; text-align: center; margin: 10px;}\n.btn-alt{background-color: green}"
 	});
 
